@@ -9,5 +9,6 @@ data class ToDoTask(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val title: String,
+    val description: String,
     val priority: Priority
 )
