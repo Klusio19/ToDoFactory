@@ -2,9 +2,11 @@ package com.ntp.todofactory.data.repositories
 
 import com.ntp.todofactory.data.ToDoDao
 import com.ntp.todofactory.data.models.ToDoTask
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
+@ViewModelScoped
 class ToDoRepository @Inject constructor(private val todoDao: ToDoDao) {
 
     val getAllTasks: Flow<List<ToDoTask>> = todoDao.getAllTasks()
@@ -27,7 +29,7 @@ class ToDoRepository @Inject constructor(private val todoDao: ToDoDao) {
         todoDao.deleteTask(toDoTask = toDoTask)
     }
 
-    suspend fun deleteAllTask() {
+    suspend fun deleteAllTasks() {
         todoDao.deleteAllTasks()
     }
 
