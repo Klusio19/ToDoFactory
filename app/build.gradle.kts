@@ -78,11 +78,15 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
 
-// DataStore Preferences
+    // DataStore Preferences
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
-// Dagger Hilt
+    // Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+
+    // Compose navigation
+    val navVersion = "2.7.7"
+    implementation("androidx.navigation:navigation-compose:$navVersion")
 
 }
