@@ -72,7 +72,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Room library
-//    val roomVersion = "2.6.1"
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
@@ -86,7 +85,6 @@ dependencies {
     ksp(libs.hilt.android.compiler)
 
     // Compose navigation
-//    val navVersion = "2.7.7"
     implementation(libs.androidx.navigation.compose)
 
 }
