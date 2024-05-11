@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -25,20 +27,37 @@ import com.ntp.todofactory.data.models.ToDoTask
 
 @Composable
 fun ListContent(
-    padding: PaddingValues
+    padding: PaddingValues,
+    tasks: List<ToDoTask>,
+    navigateToTaskScreen: (taskId: Int) -> Unit
 ) {
-
+    LazyColumn(
+        modifier = Modifier.padding(padding)
+    ) {
+        items(
+            items = tasks,
+            key = {task ->
+                task.id
+            }
+        ) {task->
+            TaskItem(
+                toDoTask = task,
+                navigateToTaskScreen = navigateToTaskScreen
+            )
+        }
+    }
 }
 
 @Composable
 fun TaskItem(
     toDoTask: ToDoTask,
-    navigateToTaskScreen: (taskId: Int) -> Unit
+    navigateToTaskScreen: (taskId: Int) -> Unit,
 ) {
     Surface(
         modifier = Modifier
-            .fillMaxWidth(),
-        color = MaterialTheme.colorScheme.primary,
+            .fillMaxWidth()
+            .padding(top = 3.dp),
+        color = MaterialTheme.colorScheme.inversePrimary,
         shape = RectangleShape,
         tonalElevation = 2.dp,
         onClick = {
@@ -53,7 +72,6 @@ fun TaskItem(
             Row {
                 Text(
                     text = toDoTask.title,
-                    color = MaterialTheme.colorScheme.onPrimary,
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
@@ -80,7 +98,6 @@ fun TaskItem(
                 modifier = Modifier
                     .fillMaxWidth(),
                 text = toDoTask.description,
-                color = MaterialTheme.colorScheme.onPrimary,
                 style = MaterialTheme.typography.bodyMedium,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
