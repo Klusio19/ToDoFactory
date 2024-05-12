@@ -8,4 +8,10 @@
     <string name="close_icon">Close icon</string>
     <string name="sad_face_icon">Sad Face Icon</string>
     <string name="empty_content_info">No tasks found!</string>
+    <string name="add_task">Add Task</string>
+    <string name="go_back_button_description">Back Icon</string>
+    <string name="add_task_button_description">Add Task</string>
+    <string name="close_button_description">Close Icon</string>
+    <string name="delete_button_description">Delete icon</string>
+    <string name="update_button_description">Update Icon</string>
 </resources>
