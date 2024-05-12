@@ -82,7 +82,10 @@ fun DefaultListAppBar(
 ) {
     TopAppBar(
         title = {
-            Text(text = "Tasks")
+            Text(
+                text = "Tasks",
+                color = MaterialTheme.colorScheme.onPrimary
+            )
         },
         colors = TopAppBarDefaults.topAppBarColors(MaterialTheme.colorScheme.primary),
         actions = {
@@ -188,7 +191,7 @@ fun SearchAppBar(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .height(56.dp),
+            .height(64.dp),
         shadowElevation = 4.dp,
         color = MaterialTheme.colorScheme.primary
     ) {
@@ -204,7 +207,7 @@ fun SearchAppBar(
                     modifier = Modifier
                         .alpha(alpha = ContentAlpha.medium),
                     text = "Search",
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.surface
                 )
             },
             singleLine = true,
@@ -217,7 +220,7 @@ fun SearchAppBar(
                     Icon(
                         imageVector = Icons.Filled.Search,
                         contentDescription = stringResource(R.string.search_icon),
-                        tint = MaterialTheme.colorScheme.onSurface
+                        tint = MaterialTheme.colorScheme.surface
                     )
                 }
             },
@@ -243,7 +246,7 @@ fun SearchAppBar(
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = stringResource(R.string.close_icon),
-                        tint = MaterialTheme.colorScheme.onSurface
+                        tint = MaterialTheme.colorScheme.surface
                     )
                 }
             },
@@ -258,9 +261,11 @@ fun SearchAppBar(
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.primary,
                 unfocusedContainerColor = MaterialTheme.colorScheme.primary,
-                focusedIndicatorColor = MaterialTheme.colorScheme.onSurface,
-                unfocusedIndicatorColor = MaterialTheme.colorScheme.onSurface,
-                cursorColor = MaterialTheme.colorScheme.onSurface
+                focusedIndicatorColor = MaterialTheme.colorScheme.surface,
+                unfocusedIndicatorColor = MaterialTheme.colorScheme.surface,
+                cursorColor = MaterialTheme.colorScheme.surface,
+                focusedTextColor = MaterialTheme.colorScheme.surface,
+                unfocusedTextColor = MaterialTheme.colorScheme.surface
             )
         )
     }
