@@ -1,11 +1,14 @@
 package com.ntp.todofactory.ui.viewmodels
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ntp.todofactory.data.models.Priority
 import com.ntp.todofactory.data.models.ToDoTask
 import com.ntp.todofactory.data.repositories.ToDoRepository
+import com.ntp.todofactory.utils.Constants.MAX_TITLE_LENGTH
 import com.ntp.todofactory.utils.RequestState
 import com.ntp.todofactory.utils.SearchAppBarState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +21,11 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(
     private val repository: ToDoRepository
 ): ViewModel() {
+
+    val id: MutableState<Int> = mutableIntStateOf(0)
+    val title: MutableState<String> = mutableStateOf("")
+    val description: MutableState<String> = mutableStateOf("")
+    val priority: MutableState<Priority> = mutableStateOf(Priority.LOW)
 
     val searchAppBarState: MutableState<SearchAppBarState> = mutableStateOf(SearchAppBarState.CLOSED)
     val searchTextState: MutableState<String> = mutableStateOf("")
@@ -48,6 +56,26 @@ class SharedViewModel @Inject constructor(
             repository.getSelectedTask(taskId = taskId).collect {task ->
                 _selectedTask.value = task
             }
+        }
+    }
+
+    fun updateTaskFields(selectedTask: ToDoTask?) {
+        if (selectedTask != null) {
+            id.value = selectedTask.id
+            title.value = selectedTask.title
+            description.value = selectedTask.description
+            priority.value = selectedTask.priority
+        } else {
+            id.value = 0
+            title.value = ""
+            description.value = ""
+            priority.value = Priority.LOW
+        }
+    }
+
+    fun updateTitle(newTitle: String) {
+        if (newTitle.length < MAX_TITLE_LENGTH) {
+            title.value = newTitle
         }
     }
 }

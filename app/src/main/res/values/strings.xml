@@ -14,4 +14,7 @@
     <string name="close_button_description">Close Icon</string>
     <string name="delete_button_description">Delete icon</string>
     <string name="update_button_description">Update Icon</string>
+    <string name="drop_down_arrow_button_description">Drop-down arrow button</string>
+    <string name="title">Title</string>
+    <string name="description_label">Description</string>
 </resources>

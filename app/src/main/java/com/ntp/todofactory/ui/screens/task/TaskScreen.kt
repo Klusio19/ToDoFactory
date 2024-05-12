@@ -1,19 +1,23 @@
 package com.ntp.todofactory.ui.screens.task
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.getValue
+import com.ntp.todofactory.data.models.Priority
 import com.ntp.todofactory.data.models.ToDoTask
+import com.ntp.todofactory.ui.viewmodels.SharedViewModel
 import com.ntp.todofactory.utils.Action
 
 @Composable
 fun TaskScreen(
     navigateToListScreen: (Action) -> Unit,
-    selectedTask: ToDoTask?
+    sharedViewModel: SharedViewModel,
+    selectedTask: ToDoTask?,
 ) {
+    val title: String by sharedViewModel.title
+    val description: String by sharedViewModel.description
+    val priority: Priority by sharedViewModel.priority
+
     Scaffold(
         topBar = {
             TaskAppBar(
@@ -22,11 +26,21 @@ fun TaskScreen(
             )
         },
         content = {innerPadding ->
-            Surface(modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)) {
-
-            }
+            TaskContent(
+                title = title,
+                onTitleChange = {
+                    sharedViewModel.updateTitle(it)
+                } ,
+                description = description ,
+                onDescriptionChange = {
+                    sharedViewModel.description.value = it
+                } ,
+                priority = priority,
+                onPrioritySelected =  {
+                    sharedViewModel.priority.value = it
+                },
+                padding = innerPadding
+            )
         }
     )
 }
