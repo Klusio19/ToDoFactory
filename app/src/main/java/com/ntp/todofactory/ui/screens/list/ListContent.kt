@@ -6,9 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
@@ -24,9 +23,29 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Text
 import com.ntp.todofactory.data.models.Priority
 import com.ntp.todofactory.data.models.ToDoTask
+import com.ntp.todofactory.utils.RequestState
 
 @Composable
 fun ListContent(
+    padding: PaddingValues,
+    tasks: RequestState<List<ToDoTask>>,
+    navigateToTaskScreen: (taskId: Int) -> Unit
+) {
+    if (tasks is RequestState.Success) {
+        if (tasks.data.isEmpty()) {
+            EmptyContent()
+        } else {
+            DisplayTasks(
+                padding = padding,
+                tasks = tasks.data,
+                navigateToTaskScreen = navigateToTaskScreen
+            )
+        }
+    }
+}
+
+@Composable
+fun DisplayTasks(
     padding: PaddingValues,
     tasks: List<ToDoTask>,
     navigateToTaskScreen: (taskId: Int) -> Unit
@@ -85,8 +104,7 @@ fun TaskItem(
                 ) {
                     Canvas(
                         modifier = Modifier
-                            .width(20.dp)
-                            .height(20.dp)
+                            .size(20.dp)
                     ) {
                         drawCircle(
                             color = toDoTask.priority.color

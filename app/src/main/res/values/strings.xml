@@ -6,4 +6,6 @@
     <string name="delete_all_action_button">Delete All</string>
     <string name="search_icon">Search Icon</string>
     <string name="close_icon">Close icon</string>
+    <string name="sad_face_icon">Sad Face Icon</string>
+    <string name="empty_content_info">No tasks found!</string>
 </resources>
