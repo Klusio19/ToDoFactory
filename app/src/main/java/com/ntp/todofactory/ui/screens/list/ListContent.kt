@@ -24,25 +24,52 @@ import androidx.wear.compose.material.Text
 import com.ntp.todofactory.data.models.Priority
 import com.ntp.todofactory.data.models.ToDoTask
 import com.ntp.todofactory.utils.RequestState
+import com.ntp.todofactory.utils.SearchAppBarState
 
 @Composable
 fun ListContent(
-    padding: PaddingValues,
-    tasks: RequestState<List<ToDoTask>>,
+    padding: PaddingValues ,
+    allTasks: RequestState<List<ToDoTask>> ,
+    searchedTasks: RequestState<List<ToDoTask>> ,
+    searchAppBarState: SearchAppBarState ,
     navigateToTaskScreen: (taskId: Int) -> Unit
 ) {
-    if (tasks is RequestState.Success) {
-        if (tasks.data.isEmpty()) {
-            EmptyContent()
-        } else {
-            DisplayTasks(
+    if (searchAppBarState == SearchAppBarState.TRIGGERED) {
+        if (searchedTasks is RequestState.Success) {
+            HandleListContent(
                 padding = padding,
-                tasks = tasks.data,
+                tasks = searchedTasks.data,
+                navigateToTaskScreen = navigateToTaskScreen
+            )
+        }
+    } else {
+        if (allTasks is RequestState.Success) {
+            HandleListContent(
+                padding = padding ,
+                tasks = allTasks.data,
                 navigateToTaskScreen = navigateToTaskScreen
             )
         }
     }
 }
+
+@Composable
+fun HandleListContent(
+    padding: PaddingValues,
+    tasks: List<ToDoTask>,
+    navigateToTaskScreen: (taskId: Int) -> Unit
+) {
+    if (tasks.isEmpty()) {
+        EmptyContent()
+    } else {
+        DisplayTasks(
+            padding = padding,
+            tasks = tasks,
+            navigateToTaskScreen = navigateToTaskScreen
+        )
+    }
+}
+
 
 @Composable
 fun DisplayTasks(

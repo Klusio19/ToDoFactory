@@ -35,6 +35,7 @@ fun ListScreen(
     val action by sharedViewModel.action
 
     val allTasks by sharedViewModel.allTasks.collectAsState()
+    val searchedTasks by sharedViewModel.searchedTasks.collectAsState()
     val searchAppBarState: SearchAppBarState by sharedViewModel.searchAppBarState
     val searchTextState: String by sharedViewModel.searchTextState
 
@@ -66,8 +67,10 @@ fun ListScreen(
         content = {innerPadding ->
             ListContent(
                 padding = innerPadding,
-                tasks = allTasks,
-                navigateToTaskScreen = navigateToTaskScreen
+                allTasks = allTasks,
+                navigateToTaskScreen = navigateToTaskScreen,
+                searchedTasks = searchedTasks,
+                searchAppBarState = searchAppBarState
             )
         },
         floatingActionButton = {
@@ -97,10 +100,10 @@ fun ListFab(
 
 @Composable
 fun DisplaySnackBar(
-    snackBarHostState: SnackbarHostState,
-    handleDataBaseActions: () -> Unit,
-    taskTitle: String,
-    action: Action,
+    snackBarHostState: SnackbarHostState ,
+    handleDataBaseActions: () -> Unit ,
+    taskTitle: String ,
+    action: Action ,
     onUndoClicked: (Action) -> Unit
 ) {
     handleDataBaseActions()
