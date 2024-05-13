@@ -38,6 +38,7 @@ import com.ntp.todofactory.R
 import com.ntp.todofactory.components.PriorityItem
 import com.ntp.todofactory.data.models.Priority
 import com.ntp.todofactory.ui.viewmodels.SharedViewModel
+import com.ntp.todofactory.utils.Action
 import com.ntp.todofactory.utils.SearchAppBarState
 import com.ntp.todofactory.utils.TrailingIconState
 
@@ -54,7 +55,9 @@ fun ListAppBar(
                     sharedViewModel.searchAppBarState.value = SearchAppBarState.OPENED
                 },
                 onSortClicked = { TODO() },
-                onDeleteAllClicked = { TODO() }
+                onDeleteAllClicked = {
+                    sharedViewModel.action.value = Action.DELETE_ALL
+                }
             )
         }
         else -> {
@@ -175,7 +178,11 @@ fun DeleteAllAction(
             text = {
                 Text(text = stringResource(R.string.delete_all_action_button))
             },
-            onClick = { expanded = false })
+            onClick = {
+                expanded = false
+                onDeleteAllClicked()
+            }
+        )
     }
 }
 
