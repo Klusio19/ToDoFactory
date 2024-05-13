@@ -17,4 +17,11 @@
     <string name="drop_down_arrow_button_description">Drop-down arrow button</string>
     <string name="title">Title</string>
     <string name="description_label">Description</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete_task_dialog_title">Remove %1$s?</string>
+    <string name="delete_task_dialog_confirmation">Are you sure you want to delete %1$s?</string>
+    <string name="delete_all_tasks_dialog_title">Remove all tasks?</string>
+    <string name="delete_all_tasks_dialog_title_confirmation">Are you sure you want to delete ALL tasks? There is no going back after this action!</string>
+
 </resources>
