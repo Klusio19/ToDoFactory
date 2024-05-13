@@ -33,7 +33,7 @@ fun TaskScreen(
                        if (sharedViewModel.validateFields()) {
                            navigateToListScreen(action)
                        } else {
-                            displayToast(context = context)
+                            displayFieldsValidationToast(context = context)
                        }
                    }
                 },
@@ -60,6 +60,6 @@ fun TaskScreen(
     )
 }
 
-fun displayToast(context: Context) {
+fun displayFieldsValidationToast(context: Context) {
     Toast.makeText(context, "Fields Empty!", Toast.LENGTH_SHORT).show()
 }
