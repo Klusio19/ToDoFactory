@@ -8,10 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.ntp.todofactory.data.models.Priority
 import com.ntp.todofactory.data.models.ToDoTask
 import com.ntp.todofactory.data.repositories.ToDoRepository
+import com.ntp.todofactory.utils.Action
 import com.ntp.todofactory.utils.Constants.MAX_TITLE_LENGTH
 import com.ntp.todofactory.utils.RequestState
 import com.ntp.todofactory.utils.SearchAppBarState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -21,6 +23,8 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(
     private val repository: ToDoRepository
 ): ViewModel() {
+
+    val action: MutableState<Action> = mutableStateOf(Action.NO_ACTION)
 
     val id: MutableState<Int> = mutableIntStateOf(0)
     val title: MutableState<String> = mutableStateOf("")
@@ -71,6 +75,45 @@ class SharedViewModel @Inject constructor(
             description.value = ""
             priority.value = Priority.LOW
         }
+    }
+
+    private fun addTask() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val toDoTask = ToDoTask(
+                title = title.value,
+                description = description.value,
+                priority = priority.value
+            )
+            repository.addTask(toDoTask)
+        }
+    }
+
+    fun handleDatabaseActions(action: Action) {
+        when (action) {
+            Action.ADD -> {
+                addTask()
+            }
+
+            Action.UPDATE -> {
+
+            }
+
+            Action.DELETE -> {
+
+            }
+
+            Action.DELETE_ALL -> {
+
+            }
+
+            Action.UNDO -> {
+            }
+
+            else -> {
+
+            }
+        }
+        this.action.value = Action.NO_ACTION
     }
 
     fun updateTitle(newTitle: String) {
