@@ -32,26 +32,49 @@ fun ListContent(
     allTasks: RequestState<List<ToDoTask>> ,
     searchedTasks: RequestState<List<ToDoTask>> ,
     searchAppBarState: SearchAppBarState ,
-    navigateToTaskScreen: (taskId: Int) -> Unit
+    navigateToTaskScreen: (taskId: Int) -> Unit ,
+    tasksSortedByLowPriority: List<ToDoTask> ,
+    tasksSortedByHighPriority: List<ToDoTask> ,
+    sortState: RequestState<Priority>
 ) {
-    if (searchAppBarState == SearchAppBarState.TRIGGERED) {
-        if (searchedTasks is RequestState.Success) {
-            HandleListContent(
-                padding = padding,
-                tasks = searchedTasks.data,
-                navigateToTaskScreen = navigateToTaskScreen
-            )
-        }
-    } else {
-        if (allTasks is RequestState.Success) {
-            HandleListContent(
-                padding = padding ,
-                tasks = allTasks.data,
-                navigateToTaskScreen = navigateToTaskScreen
-            )
+    if (sortState is RequestState.Success) {
+        when {
+            searchAppBarState == SearchAppBarState.TRIGGERED -> {
+                if (searchedTasks is RequestState.Success) {
+                    HandleListContent(
+                        padding = padding ,
+                        tasks = searchedTasks.data ,
+                        navigateToTaskScreen = navigateToTaskScreen
+                    )
+                }
+            }
+            sortState.data == Priority.NONE -> {
+                if (allTasks is RequestState.Success) {
+                    HandleListContent(
+                        padding = padding ,
+                        tasks = allTasks.data ,
+                        navigateToTaskScreen = navigateToTaskScreen
+                    )
+                }
+            }
+            sortState.data == Priority.LOW -> {
+                HandleListContent(
+                    padding = padding ,
+                    tasks = tasksSortedByLowPriority,
+                    navigateToTaskScreen = navigateToTaskScreen
+                )
+            }
+            sortState.data == Priority.HIGH -> {
+                HandleListContent(
+                    padding = padding ,
+                    tasks = tasksSortedByHighPriority,
+                    navigateToTaskScreen = navigateToTaskScreen
+                )
+            }
         }
     }
 }
+
 
 @Composable
 fun HandleListContent(
