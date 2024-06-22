@@ -1,5 +1,6 @@
 package com.ntp.todofactory.ui.screens.list
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
@@ -23,6 +24,7 @@ import com.ntp.todofactory.utils.Action
 import com.ntp.todofactory.utils.SearchAppBarState
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ListScreen(
     navigateToTaskScreen: (taskId: Int) -> Unit,
@@ -79,7 +81,11 @@ fun ListScreen(
                 searchAppBarState = searchAppBarState,
                 sortState = sortState,
                 tasksSortedByLowPriority = tasksSortedByLowPriority,
-                tasksSortedByHighPriority = tasksSortedByHighPriority
+                tasksSortedByHighPriority = tasksSortedByHighPriority,
+                onSwipeToDelete = { action, task ->
+                    sharedViewModel.action.value = action
+                    sharedViewModel.updateTaskFields(selectedTask = task)
+                }
             )
         },
         floatingActionButton = {
