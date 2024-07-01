@@ -77,7 +77,8 @@ fun ListContent(
                     HandleListContent(
                         tasks = searchedTasks.data,
                         onSwipeToDelete = onSwipeToDelete,
-                        navigateToTaskScreen = navigateToTaskScreen
+                        navigateToTaskScreen = navigateToTaskScreen,
+                        padding = padding
                     )
                 }
             }
@@ -87,7 +88,8 @@ fun ListContent(
                     HandleListContent(
                         tasks = allTasks.data,
                         onSwipeToDelete = onSwipeToDelete,
-                        navigateToTaskScreen = navigateToTaskScreen
+                        navigateToTaskScreen = navigateToTaskScreen,
+                        padding = padding
                     )
                 }
             }
@@ -96,7 +98,8 @@ fun ListContent(
                 HandleListContent(
                     tasks = tasksSortedByLowPriority,
                     onSwipeToDelete = onSwipeToDelete,
-                    navigateToTaskScreen = navigateToTaskScreen
+                    navigateToTaskScreen = navigateToTaskScreen,
+                    padding = padding
                 )
             }
 
@@ -104,7 +107,8 @@ fun ListContent(
                 HandleListContent(
                     tasks = tasksSortedByHighPriority,
                     onSwipeToDelete = onSwipeToDelete,
-                    navigateToTaskScreen = navigateToTaskScreen
+                    navigateToTaskScreen = navigateToTaskScreen,
+                    padding = padding
                 )
             }
         }
@@ -114,7 +118,8 @@ fun ListContent(
 @ExperimentalAnimationApi
 @Composable
 fun HandleListContent(
-    modifier: Modifier = Modifier,
+//    modifier: Modifier = Modifier,
+    padding: PaddingValues,
     tasks: List<ToDoTask>,
     onSwipeToDelete: (Action, ToDoTask) -> Unit,
     navigateToTaskScreen: (taskId: Int) -> Unit
@@ -123,10 +128,11 @@ fun HandleListContent(
         EmptyContent()
     } else {
         DisplayTasks(
-            modifier = modifier,
+//            modifier = modifier,
             tasks = tasks,
             onSwipeToDelete = onSwipeToDelete,
-            navigateToTaskScreen = navigateToTaskScreen
+            navigateToTaskScreen = navigateToTaskScreen,
+            padding = padding
         )
     }
 }
@@ -135,13 +141,14 @@ fun HandleListContent(
 @ExperimentalAnimationApi
 @Composable
 fun DisplayTasks(
-    modifier: Modifier = Modifier,
+//    modifier: Modifier = Modifier,
+    padding: PaddingValues,
     tasks: List<ToDoTask>,
     onSwipeToDelete: (Action, ToDoTask) -> Unit,
     navigateToTaskScreen: (taskId: Int) -> Unit
 ) {
     LazyColumn(
-        modifier = modifier
+        modifier = Modifier.padding(padding)
     ) {
         items(
             items = tasks,
